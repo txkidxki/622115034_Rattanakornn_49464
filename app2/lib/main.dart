@@ -31,7 +31,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController quantity = TextEditingController();
+  TextEditingController result = TextEditingController();
+  TextEditingController Peanutprice = TextEditingController();
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    result.text = "buy 2 get 3 raccoon free :D";
+  }
+
   @override
+
   Widget build(BuildContext context) {
     return ListView(
       children: [
@@ -58,6 +70,7 @@ class _HomeState extends State<Home> {
                   height: 20,
                 ),
                 TextField(
+                  controller: quantity,
                   decoration: InputDecoration(
                       labelText: "Peanut butter amount",
                       border: OutlineInputBorder()),
@@ -65,21 +78,40 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.yellow[700], // background
-                        onPrimary: Colors.white),
-                    onPressed: () {},
-                    child: Text("calculate",
-                        style: TextStyle(
-                            fontFamily: "playground",
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            ))),
+
+                TextField(
+                  controller: Peanutprice,
+                  decoration: InputDecoration(
+                      labelText: "Racoon amount",
+                      border: OutlineInputBorder()),
+                ),
                 SizedBox(
                   height: 20,
                 ),
-                Text("buy 2 get 1 raccoon free :D",
+
+                ElevatedButton(
+                    onPressed: () {
+                      var cal = double.parse(quantity.text) + double.parse(Peanutprice.text);
+                      print("Peanut butter quantity: ${quantity.text} Total: ${cal} THB");
+
+                      setState(() {
+                        result.text = "total: ${cal} raccoon free :D";
+                      });
+
+                    },
+                    child: Text("calculate"),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Color(0xffb74093)),
+                        padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(50, 20, 50, 20)),
+                        textStyle: MaterialStateProperty.all((TextStyle(fontSize: 30))),
+                        ),
+                        ),
+                
+
+                SizedBox(
+                  height: 20,
+                ),
+                Text(result.text,
                     style: TextStyle(
                         fontFamily: "playground",
                         fontSize: 20,
